@@ -3,6 +3,7 @@ import requests
 import cognitive_face as cf
 import credentials
 import os
+from gtts import gTTS
 
 '''
 #connection function
@@ -93,6 +94,11 @@ def testImage(src_path):
         for person in person_lists:
             if person['personId'] in identified_persons:
                 print ((person['name']))
+                myText = 'Welcome to IOT Garage' + person['name']
+                language = 'en'
+                output = gTTS(text=myText, lang=language, slow=False)
+                output.save('person.mp3')
+                os.system('mpg123 -vC person.mp3')
 
     # delete_file(credentials.face_api_downloaded_blob_loc + lst[-1].name)
 

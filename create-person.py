@@ -6,18 +6,18 @@ cf.BaseUrl.set(credentials.face_api_base_url)
 cf.Key.set(credentials.face_api_key)
 
 
-name = 'Thakur'
+name = 'Manvendra'
 name_data = "TMH2KOR"
 response = cf.person.create(credentials.face_api_person_group_id, name, name_data)
 print (response)
 name_id = response['personId']
 print (name_id)
 
-cf.person.add_face('/home/pi/1.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/2.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/3.jpg', credentials.face_api_person_group_id, name_id)
-#cf.person.add_face('/home/pi/mnt4.jpg', credentials.face_api_person_group_id, name_id)
-#cf.person.add_face('/home/pi/mnt5.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/new/112.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/new/111.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/new/1.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/new/2.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/new/3.jpg', credentials.face_api_person_group_id, name_id)
 cf.person_group.train(credentials.face_api_person_group_id)
 
 response = cf.person_group.get_status(credentials.face_api_person_group_id)
