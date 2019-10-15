@@ -1,6 +1,6 @@
 file_content_type = 'image/jpeg'
 
-DIRECTORY_TO_WATCH = '/home/pi/Desktop/motion'
+DIRECTORY_TO_WATCH = '/home/pi/new/'
 
 face_api_name = 'FaceDetectionIOTGarrage'
 face_api_key = '6b83d43d62544a8a90b837b8be390a87'

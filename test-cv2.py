@@ -15,13 +15,15 @@ def run_video_capture():
         for (x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w+10,y+h+10), (255,255,0), 2)        
             detected_face = img[y:y+h+10, x:x+w+10]
-            if flag == 4 :
+            flag = flag+1
+            if flag == 15 :
                 status = cv2.imwrite('face_detected' + str(count) + '.jpg', detected_face)
                 count = count+1
-        flag = flag+1
-        print(flag)
-        if flag > 4:
-            flag = 0
+                flag = 0
+        
+        # print(flag)
+        # if flag == 16:
+            # flag = 0
             # break
         cv2.imshow('img', img)
         # status = cv2.imwrite('face_detected.jpg', img)
