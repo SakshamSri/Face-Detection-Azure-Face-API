@@ -69,13 +69,14 @@ def testImage(src_path):
         lst,
         credentials.face_api_downloaded_blob_loc)
     '''
+    print(datetime.datetime.now())
     response = detect(src_path)
 
     face_ids = [d['faceId'] for d in response]
     print('Face IDS:\n')
     print(face_ids)
     print('\n')
-    print(datetime.datetime.now())
+    
     identified_faces = cf.face.identify(face_ids, credentials.face_api_person_group_id)
     print('Identified Faces:\n')
     print(identified_faces)
@@ -96,13 +97,17 @@ def testImage(src_path):
             if person['personId'] in identified_persons:
                 print ((person['name']))
                 print(datetime.datetime.now())
+                os.system('espeak "Hello {}" --stdout|aplay'.format(person['name']))
+                '''
                 myText = 'Welcome to IOT Garage' + person['name']
                 language = 'en'
                 output = gTTS(text=myText, lang=language, slow=False)
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
+                '''
                 print(datetime.datetime.now())
-    # delete_file(credentials.face_api_downloaded_blob_loc + lst[-1].name)
+                
+    delete_file(src_path)
 
 '''
 def get_list_blobs(blob_service, storage_container_name):
@@ -154,7 +159,7 @@ def get_blob_from_storage(blob_service,
     except:
         print ('\nERROR IN RETRIEVING BLOB FROM STORAGE...')
 '''
-'''
+
 def delete_file(file_path):
 
     try:
@@ -162,4 +167,3 @@ def delete_file(file_path):
         print ('\nDELETED...')
     except:
         print ('\nERROR IN DELETING FILE...')
-'''

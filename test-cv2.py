@@ -5,23 +5,23 @@ def run_video_capture():
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     cap = cv2.VideoCapture(0)
-    flag = 0
+    frames = 0
     count = 0
     while 1:
         ret, img = cap.read()
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-        
+        if len(faces) is 0:
+            continue
         for (x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w+10,y+h+10), (255,255,0), 2)        
             detected_face = img[y:y+h+10, x:x+w+10]
-            flag = flag+1
-            if flag == 15 :
+            if frames == 12 :
                 status = cv2.imwrite('face_detected' + str(count) + '.jpg', detected_face)
                 count = count+1
-                flag = 0
-        
-        # print(flag)
+                frames = 0
+        frames = frames + 1
+        print(flag)
         # if flag == 16:
             # flag = 0
             # break
