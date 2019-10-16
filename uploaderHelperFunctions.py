@@ -75,6 +75,7 @@ def testImage(src_path):
     print('Face IDS:\n')
     print(face_ids)
     print('\n')
+    print(datetime.datetime.now())
     identified_faces = cf.face.identify(face_ids, credentials.face_api_person_group_id)
     print('Identified Faces:\n')
     print(identified_faces)
@@ -94,12 +95,13 @@ def testImage(src_path):
         for person in person_lists:
             if person['personId'] in identified_persons:
                 print ((person['name']))
+                print(datetime.datetime.now())
                 myText = 'Welcome to IOT Garage' + person['name']
                 language = 'en'
                 output = gTTS(text=myText, lang=language, slow=False)
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
-
+                print(datetime.datetime.now())
     # delete_file(credentials.face_api_downloaded_blob_loc + lst[-1].name)
 
 '''
