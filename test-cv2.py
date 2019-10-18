@@ -25,7 +25,7 @@ def run_video_capture():
         # if flag == 16:
             # flag = 0
             # break
-        cv2.imshow('img', img)
+        # cv2.imshow('img', img)
         # status = cv2.imwrite('face_detected.jpg', img)
 
         k = cv2.waitKey(30) & 0xff

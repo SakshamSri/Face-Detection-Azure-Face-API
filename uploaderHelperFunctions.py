@@ -3,7 +3,8 @@ import requests
 import cognitive_face as cf
 import credentials
 import os
-from gtts import gTTS
+
+last_name = ''
 
 '''
 #connection function
@@ -97,6 +98,9 @@ def testImage(src_path):
             if person['personId'] in identified_persons:
                 print ((person['name']))
                 print(datetime.datetime.now())
+                if last_name is person['name'] :
+                    return
+                last_name = person['name']
                 os.system('espeak "Hello {}" --stdout|aplay'.format(person['name']))
                 '''
                 myText = 'Welcome to IOT Garage' + person['name']
@@ -105,7 +109,8 @@ def testImage(src_path):
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
                 '''
-                print(datetime.datetime.now())
+                # print(datetime.datetime.now())
+                
                 
     delete_file(src_path)
 
