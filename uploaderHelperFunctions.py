@@ -4,8 +4,6 @@ import cognitive_face as cf
 import credentials
 import os
 
-last_name = ''
-
 '''
 #connection function
 def BlockStorageConnection(storage_account_name, storage_account_key):
@@ -55,7 +53,7 @@ def checkNetwork():
         return False
 
 
-def testImage(src_path):
+def testImage(src_path, last_person):
 
     cf.BaseUrl.set(credentials.face_api_base_url)
 
@@ -98,9 +96,9 @@ def testImage(src_path):
             if person['personId'] in identified_persons:
                 print ((person['name']))
                 print(datetime.datetime.now())
-                if last_name is person['name'] :
+                if last_person == person['name'] :
                     return
-                last_name = person['name']
+                last_person = person['name']
                 os.system('espeak "Hello {}" --stdout|aplay'.format(person['name']))
                 '''
                 myText = 'Welcome to IOT Garage' + person['name']
@@ -111,7 +109,7 @@ def testImage(src_path):
                 '''
                 # print(datetime.datetime.now())
                 
-                
+    print('deleting...')            
     delete_file(src_path)
 
 '''

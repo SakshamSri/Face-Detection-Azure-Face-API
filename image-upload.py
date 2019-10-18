@@ -7,6 +7,7 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
+last_person = ''
 
 class Watcher:
 
@@ -76,7 +77,7 @@ class Handler(PatternMatchingEventHandler):
                 #Move file to backup
                 # Handler.move_to_backup(event.src_path, Handler.BACKUP_DIRECTORY)
 
-                UHF.testImage(event.src_path)
+                UHF.testImage(event.src_path, last_person)
 
                 # Handler.re_upload_files(os.listdir(Handler.DIRECTORY_TO_WATCH))
 
