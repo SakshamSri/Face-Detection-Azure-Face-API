@@ -1,10 +1,13 @@
 import cv2
+import time
+import datetime
 
 def run_video_capture():
-    
+    print(datetime.datetime.now())    
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
+    print(datetime.datetime.now())
     cap = cv2.VideoCapture(0)
+    print(datetime.datetime.now())
     frames = 0
     count = 0
     while 1:
@@ -17,7 +20,8 @@ def run_video_capture():
             if frames == 12 :
                 status = cv2.imwrite('face_detected' + str(count) + '.jpg', detected_face)
                 count = count+1
-                frames = 0
+                frames = -5
+                time.sleep(20)
         
         # if flag == 16:
             # flag = 0
