@@ -17,7 +17,7 @@ def run_video_capture():
         for (x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w+10,y+h+10), (255,255,0), 2)        
             detected_face = img[y:y+h+10, x:x+w+10]
-            if frames == 12 :
+            if frames == 4 :
                 status = cv2.imwrite('face_detected' + str(count) + '.jpg', detected_face)
                 count = count+1
                 frames = -5
