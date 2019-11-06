@@ -59,7 +59,9 @@ class Handler(PatternMatchingEventHandler):
 
         elif event.event_type == 'created':
             print (("\n\n\n\nFILE CREATED AT PATH - %s..." % event.src_path))
-
+            
+            print(event.src_path)
+            print(type(event.src_path))
             hash_filename = Handler.get_file_name()
 
             try:
@@ -73,11 +75,12 @@ class Handler(PatternMatchingEventHandler):
                     Handler.file_content_type)
                 '''
                 Handler.counter = Handler.counter + 1
-
+                print(event.src_path)
+                print(type(event.src_path))
                 #Move file to backup
                 # Handler.move_to_backup(event.src_path, Handler.BACKUP_DIRECTORY)
 
-                UHF.testImage(event.src_path, last_person)
+                # UHF.testImage(event.src_path)
 
                 # Handler.re_upload_files(os.listdir(Handler.DIRECTORY_TO_WATCH))
 

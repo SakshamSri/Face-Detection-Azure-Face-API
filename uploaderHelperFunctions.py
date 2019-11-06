@@ -53,7 +53,7 @@ def checkNetwork():
         return False
 
 
-def testImage(src_path, last_person):
+def testImage(src_path):
 
     cf.BaseUrl.set(credentials.face_api_base_url)
 
@@ -72,6 +72,11 @@ def testImage(src_path, last_person):
     response = detect(src_path)
 
     face_ids = [d['faceId'] for d in response]
+    if len(face_ids)==0:
+        # os.system('espeak "No Face Detected " --stdout|aplay')
+        print('deleting...')            
+        delete_file(src_path)
+        return
     print('Face IDS:\n')
     print(face_ids)
     print('\n')
@@ -91,23 +96,35 @@ def testImage(src_path, last_person):
                 identified_persons.append(content['personId'])
 
         print ('\n\n')
-
+        
+        if len(identified_persons)==0:
+            # os.system('espeak "Sorry. I do not know you " --stdout|aplay')
+            print('deleting...')            
+            delete_file(src_path)
+            return
         for person in person_lists:
             if person['personId'] in identified_persons:
                 print ((person['name']))
                 print(datetime.datetime.now())
-                if last_person == person['name'] :
-                    return
-                last_person = person['name']
-                os.system('espeak "Hello {}" --stdout|aplay'.format(person['name']))
+                # last_person = person['name']
+                os.system('espeak "Hello {}." --stdout|aplay'.format(person['name']))
                 '''
-                myText = 'Welcome to IOT Garage' + person['name']
+                myText = 'Welcome to IOT Garage Mister' + person['name']
                 language = 'en'
                 output = gTTS(text=myText, lang=language, slow=False)
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
                 '''
+        os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
                 # print(datetime.datetime.now())
+        '''
+        if len(face_ids)>len(identified_persons):
+            diff = len(face_ids)-len(identified_persons)
+            if diff==1:
+                os.system('espeak "Sorry. There is {} person I do not know." --stdout|aplay'.format(str(diff)))
+            else:
+                os.system('espeak "Sorry. There are {} people I do not know." --stdout|aplay'.format(str(diff)))
+        ''' 
                 
     print('deleting...')            
     delete_file(src_path)

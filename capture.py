@@ -1,8 +1,6 @@
 import cv2
 import time
 import datetime
-import os
-import uploaderHelperFunctions as UHF
 
 def run_video_capture():
     print(datetime.datetime.now())    
@@ -17,24 +15,13 @@ def run_video_capture():
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)        
         for (x,y,w,h) in faces:
-            cv2.rectangle(img, (x,y), (x+w+35,y+h+35), (255,255,0), 2)        
-            # detected_face = img[y:y+h+35, x:x+w+35]
-            if frames == 12:
-                name = 'face_detected' + str(count) + '.jpg'
-                status = cv2.imwrite(name, img)
-                det_face = str(os.path.abspath(name))
-                print(det_face)
-                # time.sleep(5)
-                try:
-                    UHF.testImage(det_face)
-                    break
-                    print('hehe')
-                except:
-                    print('error in testImage()')
-                # time.sleep(0.5)
+            cv2.rectangle(img, (x,y), (x+w+70,y+h+70), (255,255,0), 2)        
+            detected_face = img[y:y+h+70, x:x+w+70]
+            if frames == 4 :
+                status = cv2.imwrite('face_detected' + str(count) + '.jpg', detected_face)
                 count = count+1
-                frames = -4
-                # time.sleep(1)
+                frames = -5
+                # time.sleep()
         
         # if flag == 16:
             # flag = 0
