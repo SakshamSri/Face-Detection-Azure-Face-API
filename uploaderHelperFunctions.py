@@ -53,7 +53,7 @@ def checkNetwork():
         return False
 
 
-def testImage(src_path):
+def testImage(src_path, last_person, last_time):
 
     cf.BaseUrl.set(credentials.face_api_base_url)
 
@@ -99,15 +99,27 @@ def testImage(src_path):
         
         if len(identified_persons)==0:
             # os.system('espeak "Sorry. I do not know you " --stdout|aplay')
+            last_person = []
             print('deleting...')            
             delete_file(src_path)
             return
+        
+        known_list = []
+        
         for person in person_lists:
             if person['personId'] in identified_persons:
                 print ((person['name']))
                 print(datetime.datetime.now())
+                known_list.append(person['name'])                
+                '''
+                current_person = current_person + person['name'] + " "
+                if last_time == "" and last_person == "":
+                    last_person = last_person + person['name'] + " "
+                    last_time = datetime.datetime.now()
                 # last_person = person['name']
-                os.system('espeak "Hello {}." --stdout|aplay'.format(person['name']))
+                if last_person == current_person AND:
+                '''
+                
                 '''
                 myText = 'Welcome to IOT Garage Mister' + person['name']
                 language = 'en'
@@ -115,7 +127,25 @@ def testImage(src_path):
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
                 '''
+#        flag = False
+        
+#        known_list_copy = known_list.copy()
+#        known_list_copy.sort()
+#        last_person.sort()
+        
+#        if known_list_copy != last_person:
+#        flag = True
+        
+#        current_time = datetime.datetime.now()
+#        diff = (current_time - last_time).t_seconds()
+#        if flag == True and diff > 300:
+        for person in known_list:
+            os.system('espeak "Hello {}." --stdout|aplay'.format(person))
         os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
+#        else:
+#            last_person = known_list.copy()
+#            last_time = current_time
+            
                 # print(datetime.datetime.now())
         '''
         if len(face_ids)>len(identified_persons):
