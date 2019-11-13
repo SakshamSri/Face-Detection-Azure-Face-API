@@ -54,6 +54,9 @@ def checkNetwork():
 
 
 def testImage(src_path, last_person, last_time):
+    print('first line testImage()')
+    if not checkNetwork():
+        return last_person, last_time
 
     cf.BaseUrl.set(credentials.face_api_base_url)
 
@@ -76,7 +79,7 @@ def testImage(src_path, last_person, last_time):
         # os.system('espeak "No Face Detected " --stdout|aplay')
         print('deleting...')            
         delete_file(src_path)
-        return
+        return last_person, last_time
     print('Face IDS:\n')
     print(face_ids)
     print('\n')
@@ -102,7 +105,7 @@ def testImage(src_path, last_person, last_time):
             last_person = []
             print('deleting...')            
             delete_file(src_path)
-            return
+            return last_person, last_time
         
         known_list = []
         
@@ -127,24 +130,40 @@ def testImage(src_path, last_person, last_time):
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
                 '''
-#        flag = False
         
-#        known_list_copy = known_list.copy()
-#        known_list_copy.sort()
-#        last_person.sort()
+        current_time = datetime.datetime.now()
         
-#        if known_list_copy != last_person:
-#        flag = True
+        flag = False
+        if len(last_person)==0:
+            last_person = known_list.copy()
+            last_time = current_time
+            for person in known_list:
+                os.system('espeak "Hello {}." --stdout|aplay'.format(person))
+            os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
+            return last_person, last_time
         
-#        current_time = datetime.datetime.now()
-#        diff = (current_time - last_time).t_seconds()
-#        if flag == True and diff > 300:
-        for person in known_list:
-            os.system('espeak "Hello {}." --stdout|aplay'.format(person))
-        os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
-#        else:
-#            last_person = known_list.copy()
-#            last_time = current_time
+        print('before known list copy')
+        known_list_copy = known_list.copy()
+        known_list_copy.sort()
+        last_person.sort()
+        
+        print('before compare lists')
+        if known_list_copy != last_person:
+            flag = True
+        print('before computing current time')
+        
+        print('after computing current')
+        diff = (current_time - last_time)
+        diff1 = diff.total_seconds()
+        print('after computing diff')
+        
+        if flag == True and diff1 > 300:
+            for person in known_list:
+                os.system('espeak "Hello {}." --stdout|aplay'.format(person))
+            os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
+        else:
+            last_person = known_list.copy()
+            last_time = current_time
             
                 # print(datetime.datetime.now())
         '''
@@ -158,6 +177,8 @@ def testImage(src_path, last_person, last_time):
                 
     print('deleting...')            
     delete_file(src_path)
+    
+    return last_person, last_time
 
 '''
 def get_list_blobs(blob_service, storage_container_name):

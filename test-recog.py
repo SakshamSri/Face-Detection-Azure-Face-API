@@ -1,13 +1,14 @@
 import speech_recognition as sr
 import testcv2 as tcv
-import os
-import time
-import subprocess
+# import os
+# import time
+# import subprocess
 
 #from os import path
 #AUDIO_FILE = os.path.abspath('test.wav')
 #command = "sudo arecord -D plughw:1,0 test.wav"
 while True:
+    res = None
     r = sr.Recognizer()
     
     '''
@@ -37,7 +38,7 @@ while True:
         f.write(audio.get_wav_data())
     '''
     
-    #break
+    # break
 
     '''
     with sr.AudioFile(AUDIO_FILE) as source:
@@ -61,7 +62,11 @@ while True:
     except sr.RequestError as e:
         print("Error {0}".format(e))
         # print("Google thinks you said " + )
-    res = "Hello"
-    if res == "Hello":
+    #res = "Hello"
+    # res = res.lower()
+    try:
+        if "garage" in res.lower():
         #os.system("su")
-        tcv.run_video_capture()
+            tcv.run_video_capture()
+    except Exception as e:
+        print(e)
