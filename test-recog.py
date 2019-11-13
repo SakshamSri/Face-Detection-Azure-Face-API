@@ -5,23 +5,44 @@ import time
 import subprocess
 
 #from os import path
-AUDIO_FILE = os.path.abspath('test.wav')
-command = "sudo arecord -D plughw:1,0 test.wav"
+#AUDIO_FILE = os.path.abspath('test.wav')
+#command = "sudo arecord -D plughw:1,0 test.wav"
 while True:
     r = sr.Recognizer()
+    
+    '''
     print('before subprocess call')
     process = subprocess.Popen(command.split(), shell=True)
     print('after subprocess call')
     time.sleep(5)
     process.kill()
     '''
-    with sr.Microphone() as source:
+    
+    m = sr.Microphone()
+    
+    
+    with m as source:
         print('Say Something')
+        r.adjust_for_ambient_noise(source, duration=0.5)
         audio = r.listen(source)
+    
+    
+    '''
+    with m as source:
+        print('Say Something')
+        r.adjust_for_ambient_noise(source, duration=0.5)
+        audio = r.listen(source)
+        
+    with open('raw-audio.wav', 'wb') as f:
+        f.write(audio.get_wav_data())
     '''
     
+    #break
+
+    '''
     with sr.AudioFile(AUDIO_FILE) as source:
-        audio = r.record(source)
+        audio = r.record(source)    
+    '''
     
     '''
     try:
@@ -31,9 +52,9 @@ while True:
     except sr.RequestError as e:
         print("Error {0}".format(e))
     '''
-
+    
     try:
-        res = r.recognize_google(audio)
+        res = r.recognize_google(audio, language='en-IN')
         print(res)
     except sr.UnknownValueError:
         print("Couldn't understand")
