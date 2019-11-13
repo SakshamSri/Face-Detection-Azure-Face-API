@@ -19,12 +19,12 @@ while True:
     process.kill()
     '''
     
-    m = sr.Microphone()
+    m = sr.Microphone(sample_rate=48000, chunk_size=2048)
     
     
     with m as source:
         print('Say Something')
-        r.adjust_for_ambient_noise(source, duration=0.5)
+        r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
     
     
