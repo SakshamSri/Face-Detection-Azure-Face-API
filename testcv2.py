@@ -4,8 +4,8 @@ import datetime
 import os
 import uploaderHelperFunctions as UHF
 
-last_person = []
-last_time = None
+# last_person = []
+# last_time = None
 def run_video_capture():
     print(datetime.datetime.now())    
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -30,14 +30,14 @@ def run_video_capture():
                 frames = -4
                 # time.sleep(5)
                 try:
-                    global last_person
-                    global last_time
-                    last_p, last_t = UHF.testImage(det_face, last_person, last_time)
+                    # global last_person
+                    # global last_time
+                    UHF.testImage(det_face)
                     
-                    last_person = last_p                    
+                    # last_person = last_p                    
                     
-                    last_time = last_t
-                    # FLAG = False
+                    # last_time = last_t
+                    FLAG = False
                     break
                     print('hehe')
                 except:

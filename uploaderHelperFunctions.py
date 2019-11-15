@@ -53,10 +53,10 @@ def checkNetwork():
         return False
 
 
-def testImage(src_path, last_person, last_time):
+def testImage(src_path):
     print('first line testImage()')
     if not checkNetwork():
-        return last_person, last_time
+        return
 
     cf.BaseUrl.set(credentials.face_api_base_url)
 
@@ -79,7 +79,7 @@ def testImage(src_path, last_person, last_time):
         # os.system('espeak "No Face Detected " --stdout|aplay')
         print('deleting...')            
         delete_file(src_path)
-        return last_person, last_time
+        return
     print('Face IDS:\n')
     print(face_ids)
     print('\n')
@@ -101,11 +101,11 @@ def testImage(src_path, last_person, last_time):
         print ('\n\n')
         
         if len(identified_persons)==0:
-            # os.system('espeak "Sorry. I do not know you " --stdout|aplay')
-            last_person = []
+            os.system('espeak "Sorry. I do not know you. Please register yourself first. " --stdout|aplay')
+            # last_person = []
             print('deleting...')            
             delete_file(src_path)
-            return last_person, last_time
+            return
         
         known_list = []
         
@@ -130,7 +130,7 @@ def testImage(src_path, last_person, last_time):
                 output.save('person.mp3')
                 os.system('mpg123 -vC person.mp3')
                 '''
-        
+        '''
         current_time = datetime.datetime.now()
         
         flag = False
@@ -156,16 +156,18 @@ def testImage(src_path, last_person, last_time):
         diff = (current_time - last_time)
         diff1 = diff.total_seconds()
         print('after computing diff')
-        
-        if flag == True and diff1 > 300:
-            for person in known_list:
-                os.system('espeak "Hello {}." --stdout|aplay'.format(person))
-            os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
+        '''
+        #if flag == True :
+        for person in known_list:
+            os.system('espeak "Hello {}." --stdout|aplay'.format(person))
+        os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
+        '''
         else:
             last_person = known_list.copy()
             last_time = current_time
             
                 # print(datetime.datetime.now())
+        '''
         '''
         if len(face_ids)>len(identified_persons):
             diff = len(face_ids)-len(identified_persons)
@@ -178,7 +180,7 @@ def testImage(src_path, last_person, last_time):
     print('deleting...')            
     delete_file(src_path)
     
-    return last_person, last_time
+    return
 
 '''
 def get_list_blobs(blob_service, storage_container_name):

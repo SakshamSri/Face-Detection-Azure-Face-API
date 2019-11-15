@@ -1,7 +1,7 @@
 import speech_recognition as sr
 import testcv2 as tcv
 # import os
-# import time
+import time
 # import subprocess
 
 #from os import path
@@ -19,12 +19,12 @@ while True:
     process.kill()
     '''
     
-    m = sr.Microphone(sample_rate=48000, chunk_size=2048)
+    m = sr.Microphone(sample_rate=48000, chunk_size=1024)
     
     
     with m as source:
         print('Say Something')
-        r.adjust_for_ambient_noise(source, duration=1)
+        r.adjust_for_ambient_noise(source, duration=0.5)
         audio = r.listen(source)
     
     
@@ -53,7 +53,7 @@ while True:
     except sr.RequestError as e:
         print("Error {0}".format(e))
     '''
-    
+    print('Sending data to cloud...')
     try:
         res = r.recognize_google(audio, language='en-IN')
         print(res)
@@ -70,3 +70,4 @@ while True:
             tcv.run_video_capture()
     except Exception as e:
         print(e)
+    time.sleep(1)
