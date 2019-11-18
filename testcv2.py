@@ -22,12 +22,12 @@ def run_video_capture():
         for (x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w+35,y+h+35), (255,255,0), 2)        
             # detected_face = img[y:y+h+35, x:x+w+35]
-            if frames == 8:
+            if frames == 4:
                 name = 'face_detected' + str(count) + '.jpg'
                 status = cv2.imwrite(name, img)
                 det_face = str(os.path.abspath(name))
                 print(det_face)
-                frames = -4
+                frames = -2
                 # time.sleep(5)
                 try:
                     # global last_person

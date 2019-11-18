@@ -67,6 +67,7 @@ while True:
     try:
         if "garage" in res.lower():
         #os.system("su")
+            os.system('espeak "Please look in the camera." --stdout|aplay')
             tcv.run_video_capture()
     except Exception as e:
         print(e)

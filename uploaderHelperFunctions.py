@@ -101,7 +101,7 @@ def testImage(src_path):
         print ('\n\n')
         
         if len(identified_persons)==0:
-            os.system('espeak "Sorry. I do not know you. Please register yourself first. " --stdout|aplay')
+            os.system('espeak "Sorry. Unknown Face Detected. Please register yourself first. " --stdout|aplay')
             # last_person = []
             print('deleting...')            
             delete_file(src_path)
@@ -158,8 +158,9 @@ def testImage(src_path):
         print('after computing diff')
         '''
         #if flag == True :
+        os.system('espeak "Hello" --stdout|aplay')
         for person in known_list:
-            os.system('espeak "Hello {}." --stdout|aplay'.format(person))
+            os.system('espeak "{}." --stdout|aplay'.format(person))
         os.system('espeak "Welcome to I.O.T Garage." --stdout|aplay')
         '''
         else:

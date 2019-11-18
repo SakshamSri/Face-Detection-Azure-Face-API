@@ -6,18 +6,18 @@ cf.BaseUrl.set(credentials.face_api_base_url)
 cf.Key.set(credentials.face_api_key)
 
 
-name = 'Mister Shrinaath Su-darshan'
-name_data = "Pj-IOT"
+name = 'Mister Raghu Raam Jooshi'
+name_data = "SH"
 response = cf.person.create(credentials.face_api_person_group_id, name, name_data)
 print (response)
 name_id = response['personId']
 print (name_id)
 
-cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/101.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/102.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/103.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/104.jpg', credentials.face_api_person_group_id, name_id)
-cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/105.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/41.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/41.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/43.jpg', credentials.face_api_person_group_id, name_id)
+#cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/44.jpg', credentials.face_api_person_group_id, name_id)
+cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/45.jpg', credentials.face_api_person_group_id, name_id)
 #cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/16.jpg', credentials.face_api_person_group_id, name_id)
 #cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/face_detected6.jpg', credentials.face_api_person_group_id, name_id)
 #cf.person.add_face('/home/pi/Face-Detection-Azure-Face-API/face_detected7.jpg', credentials.face_api_person_group_id, name_id)
